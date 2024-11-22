@@ -1,0 +1,175 @@
+﻿@model HospitalManagements.Models.PatientViewModel
+
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<h3 class="text-center">Registration</h3>
+<div class="container d-flex justify-content-center">
+    <form asp-action="Registration" class="form-registration" method="post" enctype="multipart/form-data">
+        <!-- Name Input -->
+        @* <div class="form-group">
+            <label asp-for="Name" class="control-label">Name <span class="required">*</span></label>
+            <input asp-for="Name" class="form-control  " placeholder="Enter your full name" pattern="[A-Za-z\s]+" title="Please enter only alphabetic characters" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div> *@
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Name <span class="required">*</span></label>
+            <input asp-for="Name" class="form-control alphabeticInput" placeholder="Enter your full name" pattern="[A-Za-z\s]+" title="Please enter only alphabetic characters" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        @*  <div class="form-group">
+        <label asp-for="PhoneNumber" class="control-label" style="font-weight: bold; color: #007bff;">Phone Number<span class="required">*</span></label>
+        <input asp-for="PhoneNumber" class="form-control numericInput" placeholder="Mobile No" minlength="10" maxlength="10" required />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        *@
+
+        <!-- Phone Number Input -->
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="control-label">Mobile No.<span class="required"></span></label>
+            <input asp-for="PhoneNumber" class="form-control numericInput" placeholder="Enter your phone number" pattern="[0-9]{10}" minlength="10" maxlength="10" title="Phone number must be 10 digits" required />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+   
+
+        <!-- Email Input -->
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control form-control-custom-width" placeholder="Enter your email address" type="email" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <!-- Password Input with Visibility Toggle -->
+        <div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <div class="input-group">
+                <input asp-for="Password" class="form-control form-control-custom-width" type="password" placeholder="Enter your password" required />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility(this)">👁️</button>
+                </div>
+            </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <!-- City Selection -->
+        <div class="form-group">
+            <label asp-for="City" class="control-label">City:</label>
+            <select asp-for="City" class="form-control form-control-custom-width">
+                <option value="">Select City</option>
+                <option value="Indore">Indore</option>
+                <option value="Bhopal">Bhopal</option>
+                <option value="Jabalpur">Jabalpur</option>
+                <option value="Gwalior">Gwalior</option>
+                <option value="Ujjain">Ujjain</option>
+            </select>
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+
+        <!-- State Input (Readonly) -->
+        <div class="form-group">
+            <label asp-for="State" class="control-label">State:</label>
+            <input asp-for="State" class="form-control form-control-custom-width" value="Madhya Pradesh" readonly />
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+
+        <!-- Is Active Radio Buttons -->
+        <div class="form-group">
+            <label asp-for="IsActive" class="control-label">Is Active:</label>
+            <div>
+                <label class="radio-inline">
+                    <input type="radio" asp-for="IsActive" value="true" /> Yes
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" asp-for="IsActive" value="false" /> No
+                </label>
+            </div>
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>
+
+        <!-- Report Card File Input -->
+        <div class="form-group">
+            <label asp-for="ResumeImages" class="control-label">Report Card</label>
+            <input asp-for="ResumeImages" type="file" class="form-control" />
+            <span asp-validation-for="ResumeImages" class="text-danger"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* Main container styling */
+    .container {
+        margin-top: 50px;
+    }
+
+    /* Form styling */
+    .form-registration {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        border: 1px solid #ddd; /* Add border */
+    }
+
+    /* Custom width for textboxes and selects */
+    .form-control-custom-width {
+        width: 100%; /* Set the desired width */
+        margin-bottom: 15px;
+    }
+
+    /* Styling for labels */
+    .form-group label {
+        font-weight: bold;
+        color: #495057;
+    }
+</style>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        // Toggle Password Visibility
+        function togglePasswordVisibility(button) {
+            var passwordInput = button.parentNode.previousElementSibling;
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                button.textContent = "🙈"; // Hide icon
+            } else {
+                passwordInput.type = "password";
+                button.textContent = "👁️"; // Show icon
+            }
+        }
+
+        $(document).ready(function () {
+            // Restrict input to only allow alphabetic characters for name
+            $('input[asp-for="Name"]').on('input', function () {
+                this.value = this.value.replace(/[^A-Za-z\s]/g, '');
+            });
+
+            // Restrict input to only allow numeric characters for phone number
+            $('input[asp-for="PhoneNumber"]').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+            // Restrict input to numeric characters only for elements with class 'numericInput'
+            $('.numericInput').on('input', function () {
+                this.value = this.value.replace(/\D/g, '');
+            });
+        });
+    </script>
+}
+
+@* // Restrict input to numeric characters only
+            $('.numericInput').on('input', function () {
+                this.value = this.value.replace(/\D/g, '');
+            }); *@

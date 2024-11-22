@@ -1,0 +1,78 @@
+﻿@model HospitalManagements.Models.Appointment
+
+@{
+    ViewData["Title"] = "Register Appointment";
+}
+
+<h1 style="font-size: 24px; color: #333; margin-bottom: 20px;">Register Appointment</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="BookAppointment" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="PatientId" class="control-label" style="font-weight: bold; color: #007bff;">Patient Name</label>
+                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.Patients" style="width: 100%; margin-bottom: 10px;">
+                    <option value="">-- Select Patient --</option>
+                </select>
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DoctorId" class="control-label" style="font-weight: bold; color: #007bff;">Doctor Name</label>
+                <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.Doctors" style="width: 100%; margin-bottom: 10px;">
+                    <option value="">-- Select Doctor --</option>
+                </select>
+                <span asp-validation-for="DoctorId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Date" class="control-label" style="font-weight: bold; color: #007bff;">Appointment Date</label>
+                <input asp-for="Date" class="form-control" type="datetime-local" style="width: 100%; margin-bottom: 10px;" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Disease" class="control-label" style="font-weight: bold; color: #007bff;">Disease</label>
+                <input asp-for="Disease" class="form-control" style="width: 100%; margin-bottom: 10px;" />
+                <span asp-validation-for="Disease" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label" style="font-weight: bold; color: #007bff;">Phone Number<span class="required">*</span></label>
+                <input asp-for="PhoneNumber" class="form-control numericInput" placeholder="Mobile No" minlength="10" maxlength="10" required />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" style="width: 100%; font-size: 16px; padding: 10px;" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                var selectedDate = new Date($('input[type="datetime-local"]').val());
+                var now = new Date();
+
+                if (selectedDate < now) {
+                    alert("Appointments cannot be booked for past dates and times.");
+                    event.preventDefault();
+                }
+            });
+
+            // Restrict input to numeric characters only
+            $('.numericInput').on('input', function () {
+                this.value = this.value.replace(/\D/g, '');
+            });
+        });
+    </script>
+}

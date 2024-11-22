@@ -1,0 +1,72 @@
+﻿@model HospitalManagements.Models.Patient
+
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; text-align: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #4CAF50; margin-bottom: 20px;">Patient Dashboard</h2>
+
+    <div style="margin-top: 20px;">
+        <h4 style="color: #333; margin-bottom: 20px; font-size: 24px;">Patient Details</h4>
+        <hr style="border: 1px solid #ccc; margin-bottom: 20px;" />
+        <dl class="row" style="text-align: left;">
+            <dt class="col-sm-4" style="font-weight: bold; font-size: 18px;">
+                Name
+            </dt>
+            <dd class="col-sm-8" style="margin-bottom: 15px; font-size: 18px;">
+                @Model.Name
+            </dd>
+            <dt class="col-sm-4" style="font-weight: bold; font-size: 18px;">
+                Phone Number
+            </dt>
+            <dd class="col-sm-8" style="margin-bottom: 15px; font-size: 18px;">
+                @Model.PhoneNumber
+            </dd>
+            <dt class="col-sm-4" style="font-weight: bold; font-size: 18px;">
+                Email
+            </dt>
+            <dd class="col-sm-8" style="margin-bottom: 15px; font-size: 18px;">
+                @Model.Email
+            </dd>
+            <dt class="col-sm-4" style="font-weight: bold; font-size: 18px;">
+                City
+            </dt>
+            <dd class="col-sm-8" style="margin-bottom: 15px; font-size: 18px;">
+                @Model.City
+            </dd>
+            <dt class="col-sm-4" style="font-weight: bold; font-size: 18px;">
+                State
+            </dt>
+            <dd class="col-sm-8" style="margin-bottom: 15px; font-size: 18px;">
+                @Model.State
+            </dd>
+            <dt class="col-sm-4" style="font-weight: bold; font-size: 18px;">
+                Active Status
+            </dt>
+            <dd class="col-sm-8" style="margin-bottom: 15px; font-size: 18px;">
+                @(Model.IsActive ? "Active" : "Inactive")
+            </dd>
+            <dt class="col-sm-4" style="font-weight: bold; font-size: 18px;">
+                Report Card
+            </dt>
+            <dd class="col-sm-8" style="margin-bottom: 15px; font-size: 18px;">
+                @if (!string.IsNullOrEmpty(Model.ResumeImages))
+                {
+                    <a href="~/imeges/@Model.ResumeImages" target="_blank" class="btn btn-primary mt-2"
+                       style="text-decoration: none; background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; display: inline-block; margin-top: 10px;">
+                        View Report
+                    </a>
+                    <img id="reportImage" src="~/imeges/@Model.ResumeImages" alt="Report Image"
+                         style="max-width: 100%; height: auto; display: none; margin-top: 10px; border: 1px solid #ddd; padding: 5px;" />
+                }
+                else
+                {
+                    <span style="color: #777; font-size: 18px;">No Report uploaded</span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script>
+    function showImage() {
+        document.getElementById('reportImage').style.display = 'block';
+    }
+</script>

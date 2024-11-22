@@ -1,0 +1,52 @@
+﻿@model HospitalManagements.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2 style="text-align: center; color: #333; margin-bottom: 30px;">Management Login</h2>
+
+<div style="max-width: 400px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <form asp-action="Login" method="post">
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label asp-for="Email" class="control-label" style="display: block; margin-bottom: 5px;"></label>
+            <input asp-for="Email" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+            <span asp-validation-for="Email" class="text-danger" style="display: block; margin-top: 5px;"></span>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label asp-for="Password" class="control-label"></label>
+            <div class="input-group" style="display: flex; align-items: center;">
+                <input asp-for="Password" class="form-control form-control-custom-width" type="password" id="password" placeholder="Enter your password" required />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility(this)">👁️</button>
+                </div>
+            </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Login" class="btn btn-primary" style="width: 100%; padding: 10px; border: none; border-radius: 4px; background-color: #007bff; color: #fff; font-size: 16px;" />
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function togglePasswordVisibility(button) {
+            var passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                button.textContent = "🙈"; // Change button text to hide icon
+            } else {
+                passwordInput.type = "password";
+                button.textContent = "👁️"; // Change button text to show icon
+            }
+        }
+    </script>
+}

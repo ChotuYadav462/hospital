@@ -1,0 +1,188 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef; /* Light grey background for the Home page */
+        }
+
+        .jumbotron {
+            background-color: #007bff;
+            color: #fff;
+            padding: 80px 20px;
+            border-radius: 8px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            color: #007bff;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+            .btn-primary:hover, .btn-primary:active {
+                background-color: #0056b3;
+                border-color: #004085;
+            }
+
+        .btn-light {
+            background-color: #f8f9fa;
+            color: #007bff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .btn-light:hover, .btn-light:active {
+                background-color: #e2e6ea;
+                color: #0056b3;
+            }
+
+        .btn-dark {
+            background-color: #343a40;
+            color: #fff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .btn-dark:hover, .btn-dark:active {
+                background-color: #23272b;
+                color: #e9ecef;
+            }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Touch effect styles */
+        .btn-light-touch {
+            background-color: #e2e6ea;
+            color: #0056b3;
+        }
+
+        .btn-dark-touch {
+            background-color: #23272b;
+            color: #e9ecef;
+        }
+
+        /* Home Button Specific Styles */
+        .btn-home-touch {
+            background-color: #e2e6ea;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Hero Section -->
+        <div class="jumbotron jumbotron-fluid text-center">
+            <h1 class="display-3" style="font-weight: bold;">Welcome to Our Hospital Management System</h1>
+            <p class="lead">Efficient, Reliable, and Secure Management of Hospital Operations</p>
+            <div class="mt-4">
+                <a class="btn btn-light btn-lg" href="/Home" role="button" id="homeButton" style="margin: 10px;">Home</a>
+                <a class="btn btn-light btn-lg" href="/Patients/Registration" role="button" style="margin: 10px;">Register as Patient</a>
+                <a class="btn btn-dark btn-lg" href="/Doctors/Login" role="button" style="margin: 10px;">Doctor Login</a>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="~/images/hospital2.jpg" class="card-img-top" alt="Appointments">
+                    <div class="card-body">
+                        <h5 class="card-title">Manage Appointments</h5>
+                        <p class="card-text">Book, view, and manage your appointments seamlessly with our system.</p>
+                        <a href="/Appointments" class="btn btn-primary">View Appointments</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="~/images/hospital.jpg" class="card-img-top" alt="Patients">
+                    <div class="card-body">
+                        <h5 class="card-title">Patient Management</h5>
+                        <p class="card-text">Access and manage patient records securely with our advanced tools.</p>
+                        <a href="/Patients" class="btn btn-primary">Manage Patients</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="~/images/hospital3.jpeg" class="card-img-top" alt="Reports">
+                    <div class="card-body">
+                        <h5 class="card-title">Reports and Analytics</h5>
+                        <p class="card-text">Generate and analyze reports to optimize hospital operations.</p>
+                        <a href="/Reports" class="btn btn-primary">View Reports</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add touchstart and touchend event listeners for buttons
+            const buttons = document.querySelectorAll('.btn-light, .btn-dark');
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function () {
+                    if (this.id === 'homeButton') {
+                        this.classList.add('btn-home-touch');
+                    } else if (this.classList.contains('btn-light')) {
+                        this.classList.add('btn-light-touch');
+                    } else if (this.classList.contains('btn-dark')) {
+                        this.classList.add('btn-dark-touch');
+                    }
+                });
+
+                button.addEventListener('touchend', function () {
+                    if (this.id === 'homeButton') {
+                        this.classList.remove('btn-home-touch');
+                    } else if (this.classList.contains('btn-light-touch')) {
+                        this.classList.remove('btn-light-touch');
+                    } else if (this.classList.contains('btn-dark-touch')) {
+                        this.classList.remove('btn-dark-touch');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

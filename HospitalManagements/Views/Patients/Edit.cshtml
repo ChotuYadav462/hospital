@@ -1,0 +1,72 @@
+﻿@model HospitalManagements.Models.Patient
+
+<h2 style="text-align: center; color: #333; margin-bottom: 30px;">Edit Patient</h2>
+
+<form asp-action="Edit" enctype="multipart/form-data" method="post" style="max-width: 400px; margin: 0 auto;">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label asp-for="Name" class="control-label" style="display: block; margin-bottom: 5px;"></label>
+        <input asp-for="Name" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+        <span asp-validation-for="Name" class="text-danger" style="display: block; margin-top: 5px;"></span>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label asp-for="PhoneNumber" class="control-label" style="display: block; margin-bottom: 5px;"></label>
+        <input asp-for="PhoneNumber" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+        <span asp-validation-for="PhoneNumber" class="text-danger" style="display: block; margin-top: 5px;"></span>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label asp-for="Email" class="control-label" style="display: block; margin-bottom: 5px;"></label>
+        <input asp-for="Email" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+        <span asp-validation-for="Email" class="text-danger" style="display: block; margin-top: 5px;"></span>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label asp-for="Password" class="control-label" style="display: block; margin-bottom: 5px;"></label>
+        <input asp-for="Password" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+        <span asp-validation-for="Password" class="text-danger" style="display: block; margin-top: 5px;"></span>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label asp-for="City" class="control-label" style="display: block; margin-bottom: 5px;"></label>
+        <select asp-for="City" class="form-control">
+            <option value="">Select City</option>
+            <option value="Indore">Indore</option>
+            <option value="Bhopal">Bhopal</option>
+            <option value="Jabalpur">Jabalpur</option>
+            <option value="Gwalior">Gwalior</option>
+            <option value="Ujjain">Ujjain</option>
+        </select>
+        <span asp-validation-for="City" class="text-danger" style="display: block; margin-top: 5px;"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="State" class="control-label">State:</label>
+        <input asp-for="State" class="form-control form-control-custom-width" value="Madhya Pradesh" readonly />
+        <span asp-validation-for="State" class="text-danger"></span>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <div class="form-check">
+            <input asp-for="IsActive" class="form-check-input" />
+            <label class="form-check-label" asp-for="IsActive">Is Active</label>
+        </div>
+        <span asp-validation-for="IsActive" class="text-danger" style="display: block; margin-top: 5px;"></span>
+    </div>
+    <div class="form-group">
+        <label for="ResumeImage">Upload New Resume Image</label>
+        <input type="file" class="form-control-file" id="ResumeImage" name="ResumeImage" />
+        @if (!string.IsNullOrEmpty(Model.ResumeImages))
+        {
+            <img src="~/imeges/@Model.ResumeImages" alt="Current Resume Image" style="max-width: 100%; height: auto; margin-top: 10px; display: block;" />
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; border: none; border-radius: 4px; background-color: #007bff; color: #fff; font-size: 16px; margin-bottom: 15px;">Save</button>
+</form>
+
+<div style="max-width: 400px; margin: 0 auto;">
+    <a asp-action="Dashboard" class="btn btn-secondary" style="width: 100%; padding: 10px; text-align: center; display: block;">Back to Dashboard</a>
+</div>
